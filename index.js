@@ -1,3 +1,9 @@
+/*
+* @Author: Guillaume Pilot
+* @Date:   2016-09-09
+* @Last Modified by:   Guillaume Pilot
+* @Last Modified time: 2016-09-09
+*/
 var express = require('express');
 var bodyParser = require('body-parser');
 
@@ -17,6 +23,7 @@ app.use(bodyParser.json());
 var USERNAME = 'user';
 var PASSWORD = 'pwd';
 
+var app_port = process.env.PORT || 3000;
 //Define option for JWT
 var secret = process.env.SECRET || 'secret';
 var expiresIn = process.env.EXPIRE_TIME || 30;//Seconds or string
@@ -62,8 +69,8 @@ app.get('/profile', passport.authenticate('jwt', { session: false }),
     }
 );
 
-app.listen(3000, function () {
-	console.log('JWT app listening on port 3000!');
+app.listen(app_port, function () {
+	console.log('JWT app listening on port ', app_port, '!');
 	console.log('You can define environment variable SECRET & EXPIRE_TIME, default to secret & 30');
 });
 
