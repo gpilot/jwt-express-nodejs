@@ -56,7 +56,11 @@ app.post('/signin', function(req, res) {
 	if(!req.body || !req.body.username || !req.body.password) return res.sendStatus(400);
 	if(req.body.username !== USERNAME || req.body.password!==PASSWORD) return res.sendStatus(401);
 	console.log(req.body);
-	var token = jwt.sign({name:'user'}, secret, {expiresIn:expiresIn});
+	var options = {};
+	if(!req.body.remember && req.body.remember!==true){
+		options.expiresIn=expiresIn;
+	}
+	var token = jwt.sign({name:'user'}, secret, options);
 	res.send({token:token});
 });
 
